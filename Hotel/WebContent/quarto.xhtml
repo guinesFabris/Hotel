@@ -8,7 +8,7 @@
 	<title>Insert title here</title>
 </h:head>
 <h:body>
-	<h1>Gestão de quarto do Hotel Riuton</h1>
+	<h1>Controle de quartos</h1>
 	<h:form>
 	<h:panelGrid columns="2">
 		<h:outputLabel value="Id:"/>
@@ -29,8 +29,12 @@
 		<h:outputLabel value="Area:"/>
 		<h:inputText value="#{quartoMB.quartoAtual.area}"/>
 		
-		<h:commandButton value="Salvar" action="#{quartoMB.salvar}"/>
-		<h:commandButton value="Pesquisar" action="#{quartoMB.pesquisar}"/>
+		<h:commandButton value="Reservar quarto(Check in)" action="#{quartoMB.salvar}"/>
+		<h:commandButton value="Entregar quarto (Check-out)" action="#{quartoMB.deletar}"/>
+		<h:commandButton value="Pesquisar quarto" action="#{quartoMB.pesquisarPorId}"/>
+		<h:commandButton value="Alterar Quarto" action="#{quartoMB.alterarQuarto}"/>
+		
+		
 	</h:panelGrid>
 	
 	<h:dataTable value="#{quartoMB.quartos}" var="q" rendered="#{not empty(quartoMB.quartos)}">

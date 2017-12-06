@@ -1,20 +1,7 @@
 package curso.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.google.gson.Gson;
-
-import curso.dao.HotelDAO;
-import curso.dao.HotelDAOImpl;
-import curso.entity.Quarto;
 
 /**
  * Servlet implementation class WSQuarto
@@ -24,7 +11,6 @@ public class WSQuarto extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
-     * @see HttpServlet#HttpServlet()
      */
     public WSQuarto() {
         super();
@@ -33,7 +19,7 @@ public class WSQuarto extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	 *//*
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		String numero = request.getParameter("NUMERO");
@@ -47,6 +33,6 @@ public class WSQuarto extends HttpServlet {
 		String textoJson = gson.toJson(quartos);
 		out.println( textoJson );
 		
-	}
+	}*/
 
 }

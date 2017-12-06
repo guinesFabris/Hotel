@@ -7,6 +7,8 @@ import curso.entity.Quarto;
 public interface HotelDAO {
 	
 	void adicionar(Quarto q);
-	List<Quarto> pesquisarPorNumero(String numero);
+	Quarto pesquisarPorNumero(long numero);
+	void deletarQuarto(Quarto q);
+	void alterarQuarto(Quarto q);
 
 }

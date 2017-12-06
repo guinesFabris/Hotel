@@ -27,10 +27,6 @@ public class QuartoMB {
 		return "quarto";
 	}
 	
-	public String pesquisar() { 
-		quartos = hotelDAO.pesquisarPorNumero( quartoAtual.getNumero() );
-		return "quarto";
-	}
 	
 	public Quarto getQuartoAtual() {
 		return quartoAtual;
@@ -44,6 +40,18 @@ public class QuartoMB {
 	}
 	public void setQuartos(List<Quarto> quartos) {
 		this.quartos = quartos;
+	}
+	
+	public void deletar() {
+		hotelDAO.deletarQuarto(quartoAtual);
+	}
+	
+	public void pesquisarPorId () {
+		quartoAtual = hotelDAO.pesquisarPorNumero(quartoAtual.getId());
+	}
+	
+	public void alterarQuarto () {
+		hotelDAO.alterarQuarto(quartoAtual);
 	}
 
 }

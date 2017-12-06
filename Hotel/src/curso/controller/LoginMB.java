@@ -16,16 +16,15 @@ public class LoginMB {
 	public String logar() {
 		String pagina = "login";
 		
-		if ("admin".equals(txtUsuario) && "123456".equals(txtSenha)) {
+		if ("admin".equals(txtUsuario) && "admin".equals(txtSenha)) {
 			pagina = "quarto?faces-redirect=true";
 			usuarioAtual = new Usuario();
-			usuarioAtual.setEmail("antoniorcn@hotmail.com");
-			usuarioAtual.setNome("Antonio Rodrigues");
+			usuarioAtual.setEmail("admin@fatec.com");
+			usuarioAtual.setNome("admin");
 			usuarioAtual.setSenha(txtSenha);
 			usuarioAtual.setUsuario(txtUsuario);
 			usuarioAtual.setPerfil("admin");
 		}
-		
 		return pagina;
 	}
 	

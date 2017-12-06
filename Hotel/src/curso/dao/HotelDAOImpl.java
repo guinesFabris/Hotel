@@ -1,58 +1,51 @@
 package curso.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.EntityManager;
 
 import curso.entity.Quarto;
 
 public class HotelDAOImpl implements HotelDAO {
+	
+	private EntityManager em;
+
 
 	@Override
 	public void adicionar(Quarto q) {
-		Connection con = DBUtil.instance().getConnection();
-		String sql = "INSERT INTO quarto (id, numero, tipo, descricao, preco, area) "
-					+ "VALUES (?, ?, ?, ?, ?, ?)";
-		try {
-			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setLong(1,  q.getId());
-			stmt.setString(2,  q.getNumero());
-			stmt.setString(3,  q.getTipo());
-			stmt.setString(4,  q.getDescricao());
-			stmt.setDouble(5,  q.getPreco());
-			stmt.setDouble(6,  q.getArea());
-			stmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		em = ResourceManager.getEntityManager();
+		em.getTransaction().begin();
+		if (em.find(Quarto.class, (long) q.getId()) != null)
+			em.merge(q);
+		else
+			em.persist(q);
+		em.getTransaction().commit();
+		em.close();
 	}
-
+	
+	
 	@Override
-	public List<Quarto> pesquisarPorNumero(String numero) {
-		List<Quarto> quartos = new ArrayList<Quarto>();
-		Connection con = DBUtil.instance().getConnection();
-		String sql = "SELECT * FROM quarto WHERE numero like ?";
-		try {
-			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setString(1,  "%" + numero + "%");
-			ResultSet rs = stmt.executeQuery();
-			while(rs.next()) { 
-				Quarto q = new Quarto();
-				q.setId(rs.getLong("id"));
-				q.setNumero(rs.getString("numero"));
-				q.setDescricao(rs.getString("descricao"));
-				q.setTipo(rs.getString("tipo"));
-				q.setPreco(rs.getDouble("preco"));
-				q.setArea(rs.getDouble("area"));
-				quartos.add( q );
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return quartos;
+	public Quarto pesquisarPorNumero(long id) {
+		em = ResourceManager.getEntityManager();
+		Quarto q = em.find(Quarto.class, (long)id);
+		return q;
 	}
-
+	
+	
+	@Override
+	public void deletarQuarto(Quarto q) {
+		em = ResourceManager.getEntityManager();
+		em.getTransaction().begin();
+		em.remove(em.contains(q) ? q : em.merge(q));
+		em.getTransaction().commit();
+		em.close();
+	}
+	
+	
+	public void alterarQuarto(Quarto q) {
+		em = ResourceManager.getEntityManager();
+		em.getTransaction().begin();
+		em.merge(q);
+		em.getTransaction().commit();
+		em.close();
+		
+	}
 }
